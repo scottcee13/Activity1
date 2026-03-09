@@ -22,6 +22,8 @@ public class CharacterControllerMovement : MonoBehaviour
     bool running = false;
     Animator animator;
 
+    public GameObject inventoryPanel;
+
     float rotationFactorPerFrame = 1f;
     public static Func<bool> OnAttack;
 
@@ -59,6 +61,10 @@ public class CharacterControllerMovement : MonoBehaviour
         playerInputs.CharacterController.Sprint.canceled += context => { running = false; };
 
         playerInputs.CharacterController.Dodge.started += context => { Debug.Log("Dodged!"); };
+        playerInputs.CharacterController.Inventory.started += context =>
+        {
+            ToggleInventory();
+        };
     }
 
     private void OnEnable()
@@ -119,5 +125,10 @@ public class CharacterControllerMovement : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
             transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame);
         }
+    }
+
+    void ToggleInventory()
+    {
+        inventoryPanel.SetActive(!inventoryPanel.activeSelf);
     }
 }

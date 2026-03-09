@@ -7,6 +7,8 @@ public class InventoryUI : MonoBehaviour
     public GameObject slotPrefab;
     public Transform gridParent;
 
+    public InventoryDescriptionUI descriptionUI;
+
     private void Start()
     {
         DisplayWeapons();
@@ -19,7 +21,7 @@ public class InventoryUI : MonoBehaviour
             GameObject slot = Instantiate(slotPrefab, gridParent);
 
             InventorySlot slotScript = slot.GetComponent<InventorySlot>();
-            slotScript.Setup(weapon);
+            slotScript.Setup(weapon, descriptionUI);
         }
     }
 }
