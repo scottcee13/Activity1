@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c9692ded31ba741aa64e4c52ad5ff5, type: 3}
   m_Name: Dagger
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponID: dagger_3
   weaponName: Dagger
   weaponDamage: 1
   weaponDescription: Stabbing with my dagger!

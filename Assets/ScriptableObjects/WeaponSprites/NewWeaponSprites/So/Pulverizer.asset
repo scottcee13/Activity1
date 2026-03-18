@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c9692ded31ba741aa64e4c52ad5ff5, type: 3}
   m_Name: Pulverizer
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponID: pulverizer_23
   weaponName: Pulverizer
   weaponDamage: 0
   weaponDescription: Bang

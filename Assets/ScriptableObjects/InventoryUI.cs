@@ -9,17 +9,21 @@ public class InventoryUI : MonoBehaviour
 
     public InventoryDescriptionUI descriptionUI;
 
-    private void Start()
+    private void OnEnable()
     {
         DisplayWeapons();
     }
 
     void DisplayWeapons()
     {
-        foreach (WeaponData weapon in database.Weapons)
+        foreach (Transform child in gridParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (WeaponData weapon in PlayerInventory.instance.ownedWeapons)
         {
             GameObject slot = Instantiate(slotPrefab, gridParent);
-
             InventorySlot slotScript = slot.GetComponent<InventorySlot>();
             slotScript.Setup(weapon, descriptionUI);
         }

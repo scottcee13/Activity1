@@ -3,20 +3,60 @@
   "WorkspaceRootPath": "C:\\Users\\jemc5a08\\Activity1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\scripts\\inventorydescriptionui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\inventorydescriptionui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scriptableobjects\\inventoryui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\inventoryui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\scripts\\charactercontrollermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\charactercontrollermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\enemy\\enemyfsm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\enemy\\enemyfsm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\enemy\\enemymovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\enemy\\enemymovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\scriptableobjects\\gameinputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\gameinputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scriptableobjects\\savesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\savesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\scriptableobjects\\shopslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\shopslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scripts\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapondata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scriptableobjects\\inventoryslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\inventoryslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\scripts\\inventorydescriptionui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\inventorydescriptionui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scriptableobjects\\playerinventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\playerinventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\scriptableobjects\\itemdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scriptableobjects\\shopui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\shopui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scriptableobjects\\itemdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\itemdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scriptableobjects\\savedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\savedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,11 +66,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "InventoryDescriptionUI.cs",
               "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\Scripts\\InventoryDescriptionUI.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\InventoryDescriptionUI.cs",
@@ -38,12 +78,141 @@
               "RelativeToolTip": "Assets\\Scripts\\InventoryDescriptionUI.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-09T06:13:52.183Z",
+              "WhenOpened": "2026-03-13T07:19:07.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CharacterControllerMovement.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\Scripts\\CharacterControllerMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CharacterControllerMovement.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\Scripts\\CharacterControllerMovement.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CharacterControllerMovement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T07:07:40.417Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "EnemyFSM.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\Enemy\\EnemyFSM.cs",
+              "RelativeDocumentMoniker": "Assets\\Enemy\\EnemyFSM.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\Enemy\\EnemyFSM.cs",
+              "RelativeToolTip": "Assets\\Enemy\\EnemyFSM.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAIwEkAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T06:52:18.675Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EnemyMovement.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\Enemy\\EnemyMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\Enemy\\EnemyMovement.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\Enemy\\EnemyMovement.cs",
+              "RelativeToolTip": "Assets\\Enemy\\EnemyMovement.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAowBkAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T06:52:15.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GameInputManager.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\GameInputManager.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptableObjects\\GameInputManager.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\GameInputManager.cs",
+              "RelativeToolTip": "Assets\\ScriptableObjects\\GameInputManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T06:27:22.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ShopSlot.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\ShopSlot.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptableObjects\\ShopSlot.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\ShopSlot.cs",
+              "RelativeToolTip": "Assets\\ScriptableObjects\\ShopSlot.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T05:55:11.848Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "WeaponData.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\Scripts\\WeaponData.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\WeaponData.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\Scripts\\WeaponData.cs",
+              "RelativeToolTip": "Assets\\Scripts\\WeaponData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T06:03:24.059Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SaveSystem.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\SaveSystem.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptableObjects\\SaveSystem.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\SaveSystem.cs",
+              "RelativeToolTip": "Assets\\ScriptableObjects\\SaveSystem.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAowC0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T06:01:00.018Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "InventoryUI.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\InventoryUI.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptableObjects\\InventoryUI.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\InventoryUI.cs",
+              "RelativeToolTip": "Assets\\ScriptableObjects\\InventoryUI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T07:17:08.416Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PlayerInventory.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\PlayerInventory.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptableObjects\\PlayerInventory.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\PlayerInventory.cs",
+              "RelativeToolTip": "Assets\\ScriptableObjects\\PlayerInventory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T05:54:00.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ShopUI.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\ShopUI.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptableObjects\\ShopUI.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\ShopUI.cs",
+              "RelativeToolTip": "Assets\\ScriptableObjects\\ShopUI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-13T05:55:46.176Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "ItemDatabase.cs",
               "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\ItemDatabase.cs",
               "RelativeDocumentMoniker": "Assets\\ScriptableObjects\\ItemDatabase.cs",
@@ -51,34 +220,32 @@
               "RelativeToolTip": "Assets\\ScriptableObjects\\ItemDatabase.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-04T07:40:19.891Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-04T07:40:19.891Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "InventorySlot.cs",
               "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\InventorySlot.cs",
               "RelativeDocumentMoniker": "Assets\\ScriptableObjects\\InventorySlot.cs",
               "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\InventorySlot.cs",
               "RelativeToolTip": "Assets\\ScriptableObjects\\InventorySlot.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABgAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-04T07:32:17.488Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "InventoryUI.cs",
-              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\InventoryUI.cs",
-              "RelativeDocumentMoniker": "Assets\\ScriptableObjects\\InventoryUI.cs",
-              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\InventoryUI.cs",
-              "RelativeToolTip": "Assets\\ScriptableObjects\\InventoryUI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 13,
+              "Title": "SaveData.cs",
+              "DocumentMoniker": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\SaveData.cs",
+              "RelativeDocumentMoniker": "Assets\\ScriptableObjects\\SaveData.cs",
+              "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\ScriptableObjects\\SaveData.cs",
+              "RelativeToolTip": "Assets\\ScriptableObjects\\SaveData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-04T07:17:08.416Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-13T06:00:10.606Z"
             }
           ]
         }

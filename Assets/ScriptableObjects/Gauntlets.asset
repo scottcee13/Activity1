@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c9692ded31ba741aa64e4c52ad5ff5, type: 3}
   m_Name: Gauntlets
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponID: gauntlets_4
   weaponName: Gauntlets
   weaponDamage: 4
   weaponDescription: Punching with my gauntlets!

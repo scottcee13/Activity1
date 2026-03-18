@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c9692ded31ba741aa64e4c52ad5ff5, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  weaponID: shield_8
   weaponName: Shield
   weaponDamage: 8
   weaponDescription: Bashing with my shield!
