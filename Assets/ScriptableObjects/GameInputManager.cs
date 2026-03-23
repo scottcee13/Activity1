@@ -7,16 +7,29 @@ public class GameInputManager : MonoBehaviour
 
     public SaveSystem saveSystem;
 
+    public AudioClip openSound;
+    public AudioClip closeSound;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+            bool isOpen = inventoryPanel.activeSelf;
+            inventoryPanel.SetActive(!isOpen);
+            if (!isOpen)
+                AudioManager.Instance.PlayUI(openSound);
+            else
+                AudioManager.Instance.PlayUI(closeSound);
         }
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            shopPanel.SetActive(!shopPanel.activeSelf);
+            bool isOpen = shopPanel.activeSelf;
+            shopPanel.SetActive(!isOpen);
+            if (!isOpen)
+                AudioManager.Instance.PlayUI(openSound);
+            else
+                AudioManager.Instance.PlayUI(closeSound);
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace))
