@@ -15,11 +15,11 @@
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\shopdescriptionui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\scriptableobjects\\shopslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scriptableobjects\\shopslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\shopslot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\scriptableobjects\\gameinputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scriptableobjects\\gameinputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\gameinputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -31,11 +31,11 @@
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\playerinventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\scriptableobjects\\inventoryui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scriptableobjects\\inventoryui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptableobjects\\inventoryui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\scripts\\inventorytoggle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\scripts\\inventorytoggle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\inventorytoggle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -43,7 +43,7 @@
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\inventorydescriptionui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|c:\\users\\jemc5a08\\activity1\\assets\\audio\\levelaudiostarter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|C:\\Users\\jemc5a08\\Activity1\\assets\\audio\\levelaudiostarter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{932E4AA1-6077-DC6A-AD63-F158519C0198}|Assembly-CSharp.csproj|solutionrelative:assets\\audio\\levelaudiostarter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -78,8 +78,7 @@
               "RelativeToolTip": "Assets\\ScriptableObjects\\ShopSlot.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-23T07:03:05.059Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-23T07:03:05.059Z"
             },
             {
               "$type": "Document",
@@ -91,8 +90,7 @@
               "RelativeToolTip": "Assets\\ScriptableObjects\\GameInputManager.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAQwAoAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-23T06:58:22.047Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-23T06:58:22.047Z"
             },
             {
               "$type": "Document",
@@ -104,8 +102,7 @@
               "RelativeToolTip": "Assets\\ScriptableObjects\\InventoryUI.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-23T06:57:03.022Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-23T06:57:03.022Z"
             },
             {
               "$type": "Document",
@@ -117,8 +114,7 @@
               "RelativeToolTip": "Assets\\Scripts\\InventoryToggle.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-23T06:56:40.541Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-23T06:56:40.541Z"
             },
             {
               "$type": "Document",
@@ -130,8 +126,7 @@
               "RelativeToolTip": "Assets\\Audio\\LevelAudioStarter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-23T06:55:04.462Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-23T06:55:04.462Z"
             },
             {
               "$type": "Document",
@@ -141,7 +136,7 @@
               "RelativeDocumentMoniker": "Assets\\Audio\\AudioSettings.cs",
               "ToolTip": "C:\\Users\\jemc5a08\\Activity1\\Assets\\Audio\\AudioSettings.cs",
               "RelativeToolTip": "Assets\\Audio\\AudioSettings.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAA4wGMAAABBAAAAAAAAAA==",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAuwGQAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-23T06:44:32.436Z",
               "EditorCaption": ""
@@ -156,8 +151,7 @@
               "RelativeToolTip": "Assets\\Audio\\AudioManager.cs",
               "ViewState": "AgIAAMIAAAAAAAAAAAAzwM8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-23T06:33:57.706Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-23T06:33:57.706Z"
             },
             {
               "$type": "Document",
@@ -169,8 +163,7 @@
               "RelativeToolTip": "Assets\\ScriptableObjects\\ShopDescriptionUI.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-13T07:20:57.605Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-13T07:20:57.605Z"
             },
             {
               "$type": "Document",
@@ -182,8 +175,7 @@
               "RelativeToolTip": "Assets\\Scripts\\InventoryDescriptionUI.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-13T07:19:07.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-13T07:19:07.901Z"
             },
             {
               "$type": "Document",
@@ -207,8 +199,7 @@
               "RelativeToolTip": "Assets\\ScriptableObjects\\PlayerInventory.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-13T05:54:00.906Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-13T05:54:00.906Z"
             },
             {
               "$type": "Document",
@@ -220,8 +211,7 @@
               "RelativeToolTip": "Assets\\ScriptableObjects\\ItemDatabase.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-04T07:40:19.891Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-04T07:40:19.891Z"
             },
             {
               "$type": "Document",

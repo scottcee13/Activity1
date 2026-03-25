@@ -43,12 +43,12 @@ public class AudioSettingsUI : MonoBehaviour
         uiSlider.value = PlayerPrefs.GetFloat("UIVolume", 1f);
         ambientSlider.value = PlayerPrefs.GetFloat("AmbientVolume", 1f);
 
-        masterSlider.onValueChanged.AddListener(AudioManager.Instance.SetMasterVolume);
-        musicSlider.onValueChanged.AddListener(AudioManager.Instance.SetMusicVolume);
-        sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
-        voiceSlider.onValueChanged.AddListener(AudioManager.Instance.SetVoiceVolume);
-        uiSlider.onValueChanged.AddListener(AudioManager.Instance.SetUIVolume);
-        ambientSlider.onValueChanged.AddListener(AudioManager.Instance.SetAmbientVolume);
+        masterSlider.onValueChanged.AddListener(OnMasterChanged);
+        musicSlider.onValueChanged.AddListener(OnMusicChanged);
+        sfxSlider.onValueChanged.AddListener(OnSFXChanged);
+        voiceSlider.onValueChanged.AddListener(OnVoiceChanged);
+        uiSlider.onValueChanged.AddListener(OnUIChanged);
+        ambientSlider.onValueChanged.AddListener(OnAmbientChanged);
 
         isInitializing = false;
 
@@ -93,7 +93,6 @@ public class AudioSettingsUI : MonoBehaviour
 
     public void MuteAll()
     {
-        masterSlider.value = 0.0001f;
         AudioManager.Instance.MuteAll();
     }
 
