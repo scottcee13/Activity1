@@ -32,6 +32,11 @@ public class GameInputManager : MonoBehaviour
                 AudioManager.Instance.PlayUI(closeSound);
         }
 
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            saveSystem.SaveGame();
+        }
+
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             saveSystem.ResetSave();

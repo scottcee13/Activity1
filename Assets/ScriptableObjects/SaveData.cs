@@ -4,4 +4,5 @@ using System.Collections.Generic;
 public class SaveData
 {
     public List<string> ownedWeaponIDs = new List<string>();
+    public List<QuestStatus> questStatuses = new List<QuestStatus>();
 }
