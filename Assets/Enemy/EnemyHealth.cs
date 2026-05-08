@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -8,11 +9,14 @@ public class EnemyHealth : MonoBehaviour
     public int injuredThreshold = 30;
 
     Animator animator;
+    private bool isDead;
+    public static Action<EnemyHealth> OnEnemyKilled;
 
     void Start()
     {
         currentHP = maxHP;
         animator = GetComponent<Animator>();
+        isDead = false;
     }
 
     void Update()
@@ -34,7 +38,25 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isDead) return;
         currentHP -= damage;
+
+        if (currentHP <= 0)
+        {
+            currentHP = 0;
+            Die();
+        }
     }
 
+    private void Die()
+    {
+        isDead = true;
+        OnEnemyKilled?.Invoke(this);
+        Destroy(gameObject, 0.25f);
+    }
+
+    public bool IsAlive()
+    {
+        return !isDead;
+    }
 }

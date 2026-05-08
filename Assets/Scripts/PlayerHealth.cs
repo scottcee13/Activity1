@@ -47,4 +47,10 @@ public class PlayerHealth : MonoBehaviour
             animator.SetLayerWeight(1, 1f);
         }
     }
+
+    public void TakeDamage(int damageAmount)
+    {
+        if (health <= 0) return;
+        Damage(damageAmount);
+    }
 }
