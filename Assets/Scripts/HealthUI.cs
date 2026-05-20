@@ -7,7 +7,6 @@ public class HealthUI : MonoBehaviour
 
     [SerializeField]
     private GameObject mainCamera;
-    private Vector3 camOriginPos;
 
     [SerializeField]
     private float shakeIntensity = 1.01f;
@@ -19,7 +18,9 @@ public class HealthUI : MonoBehaviour
 
     private void Start()
     {
-        camOriginPos = mainCamera.transform.position;
+        if (mainCamera == null)
+            mainCamera = Camera.main != null ? Camera.main.gameObject : null;
+
         damagePanel.SetActive(false);
 
         GameObject sliderObj = GameObject.Find("HealthBar");
@@ -51,9 +52,12 @@ public class HealthUI : MonoBehaviour
 
     IEnumerator CameraShakeRoutine()
     {
-        mainCamera.transform.position = camOriginPos + (Random.insideUnitSphere * shakeIntensity);
+        // Orbit cameras (ThirdPersonCamera) control position each LateUpdate — only shake local offset.
+        Transform cam = mainCamera.transform;
+        Vector3 localOrigin = cam.localPosition;
+        cam.localPosition = localOrigin + (Random.insideUnitSphere * shakeIntensity);
         yield return new WaitForSeconds(0.25f);
-        mainCamera.transform.position = camOriginPos;
+        cam.localPosition = localOrigin;
         isCameraShaking = false;
     }
 

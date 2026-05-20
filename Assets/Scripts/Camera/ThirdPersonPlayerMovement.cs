@@ -9,6 +9,9 @@ public class ThirdPersonPlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (GetComponent<DungeonCrawler.Player.PlayerMotor>() != null)
+            return;
+
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 

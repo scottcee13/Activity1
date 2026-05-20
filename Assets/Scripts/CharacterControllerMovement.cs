@@ -27,6 +27,14 @@ public class CharacterControllerMovement : MonoBehaviour
 
     private void Awake()
     {
+        // PlayerMotor + PlayerMovementBootstrap replace this script (duplicate Move = jitter).
+        if (GetComponent<DungeonCrawler.Player.PlayerMotor>() != null ||
+            GetComponent<DungeonCrawler.Player.PlayerMovementBootstrap>() != null)
+        {
+            enabled = false;
+            return;
+        }
+
         playerInputs = new PlayerInputs();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();

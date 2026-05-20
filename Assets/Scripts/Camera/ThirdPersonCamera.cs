@@ -1,38 +1,49 @@
 using UnityEngine;
 
+/// <summary>
+/// Orbits around the player via cameraPivot. Rig stays behind the player (no snap-to-feet jitter).
+/// </summary>
 public class ThirdPersonCamera : MonoBehaviour
 {
-    public Transform target;          // player
-    public Transform cameraPivot;     // child pivot
+    public Transform target;
+    public Transform cameraPivot;
     public float mouseSensitivity = 200f;
     public float minPitch = -30f;
     public float maxPitch = 60f;
+    public float followDistance = 5f;
 
-    float pitch = 0f;
+    private float yaw;
+    private float pitch;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (cameraPivot != null && cameraPivot.GetComponent<DungeonCrawler.Player.PlayerAimProvider>() == null)
+            cameraPivot.gameObject.AddComponent<DungeonCrawler.Player.PlayerAimProvider>();
     }
 
     void LateUpdate()
     {
-        if (target == null) return;
+        if (target == null || cameraPivot == null) return;
 
-        // Follow player position
-        transform.position = target.position;
-
-        // Mouse look
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        // Rotate camera around player horizontally
-        transform.Rotate(Vector3.up * mouseX);
-
-        // Rotate camera vertically
+        yaw += mouseX;
         pitch -= mouseY;
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
-        cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+
+        cameraPivot.position = target.position + Vector3.up * 1.6f;
+        cameraPivot.rotation = Quaternion.Euler(pitch, yaw, 0f);
+
+        Camera cam = GetComponentInChildren<Camera>();
+        if (cam != null)
+        {
+            Transform camT = cam.transform;
+            camT.position = cameraPivot.position - cameraPivot.forward * followDistance;
+            camT.rotation = Quaternion.LookRotation(cameraPivot.forward, Vector3.up);
+        }
     }
 }
