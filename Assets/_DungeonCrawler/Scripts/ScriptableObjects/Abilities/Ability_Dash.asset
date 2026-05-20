@@ -16,5 +16,5 @@ MonoBehaviour:
   displayName: Dash
   description: Dash
   cooldown: 2
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: a1b9672438658be48a2bb3f5fdb3df1d, type: 3}
   defaultKey: 113

@@ -16,5 +16,5 @@ MonoBehaviour:
   displayName: Projectile
   description: Projectile
   cooldown: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: d09956da7f0eb164d8235d4fed29478c, type: 3}
   defaultKey: 102
