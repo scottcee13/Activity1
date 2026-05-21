@@ -9,6 +9,9 @@ namespace DungeonCrawler.UI
         [SerializeField] private Slider masterSlider;
         [SerializeField] private Slider musicSlider;
         [SerializeField] private Slider sfxSlider;
+        [SerializeField] private Slider dialogueSlider;
+        [SerializeField] private Slider ambientSlider;
+        [SerializeField] private Slider uiSlider;
         [SerializeField] private Button resumeButton;
         [SerializeField] private Button restartButton;
         [SerializeField] private Button mainMenuButton;
@@ -17,21 +20,12 @@ namespace DungeonCrawler.UI
         {
             if (AudioManager.Instance == null) return;
 
-            if (masterSlider != null)
-            {
-                masterSlider.value = AudioManager.Instance.GetSavedVolume("MasterVolume");
-                masterSlider.onValueChanged.AddListener(AudioManager.Instance.SetMasterVolume);
-            }
-            if (musicSlider != null)
-            {
-                musicSlider.value = AudioManager.Instance.GetSavedVolume("MusicVolume");
-                musicSlider.onValueChanged.AddListener(AudioManager.Instance.SetMusicVolume);
-            }
-            if (sfxSlider != null)
-            {
-                sfxSlider.value = AudioManager.Instance.GetSavedVolume("SFXVolume");
-                sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
-            }
+            BindSlider(masterSlider, "MasterVolume", AudioManager.Instance.SetMasterVolume);
+            BindSlider(musicSlider, "MusicVolume", AudioManager.Instance.SetMusicVolume);
+            BindSlider(sfxSlider, "SFXVolume", AudioManager.Instance.SetSFXVolume);
+            BindSlider(dialogueSlider, "VoiceVolume", AudioManager.Instance.SetDialogueVolume);
+            BindSlider(ambientSlider, "AmbientVolume", AudioManager.Instance.SetAmbientVolume);
+            BindSlider(uiSlider, "UIVolume", AudioManager.Instance.SetUIVolume);
 
             if (resumeButton != null)
                 resumeButton.onClick.AddListener(() => UIManager.Instance?.TogglePause());
@@ -39,6 +33,13 @@ namespace DungeonCrawler.UI
                 restartButton.onClick.AddListener(() => GameManager.Instance?.RestartDungeon());
             if (mainMenuButton != null)
                 mainMenuButton.onClick.AddListener(() => SceneFlowManager.Instance?.LoadMainMenu());
+        }
+
+        private static void BindSlider(Slider slider, string prefKey, UnityEngine.Events.UnityAction<float> setter)
+        {
+            if (slider == null) return;
+            slider.SetValueWithoutNotify(AudioManager.Instance.GetSavedVolume(prefKey));
+            slider.onValueChanged.AddListener(setter);
         }
     }
 }

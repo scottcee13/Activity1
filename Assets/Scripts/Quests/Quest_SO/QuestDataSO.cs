@@ -19,6 +19,16 @@ public class QuestDataSO : ScriptableObject
     public ObjectiveType objectiveType;
     public int requiredAmount = 1;
 
+    [Header("Targets (optional — empty = any)")]
+    [Tooltip("Kill quests: HealthComponent entity id (e.g. first_enemy, dungeon_boss)")]
+    public string targetEntityId;
+    [Tooltip("Dialogue quests: DialogueDataSO dialogueId")]
+    public string targetDialogueId;
+    [Tooltip("Item quests: ItemDataSO itemId")]
+    public string targetItemId;
+    [Tooltip("Zone quests: QuestObjectiveTrigger objectiveId")]
+    public string targetObjectiveId;
+
     [Header("Rewards")]
     public int goldReward = 0;
     public int expReward = 0;

@@ -13,6 +13,9 @@ public class QuestManager : MonoBehaviour
 
     public Action OnQuestUpdated;
 
+    /// <summary>Raised after any quest state change (for UI/audio).</summary>
+    public void NotifyQuestUpdated() => OnQuestUpdated?.Invoke();
+
     private void Awake()
     {
         if (Instance == null)
@@ -68,6 +71,42 @@ public class QuestManager : MonoBehaviour
         OnQuestUpdated?.Invoke();
     }
 
+    /// <summary>Advance a single quest by id. Returns true if progress was applied.</summary>
+    public bool AdvanceQuest(string questID, int amount = 1)
+    {
+        QuestInstance quest = GetQuest(questID);
+        if (quest == null || quest.status.isCompleted || quest.status.rewardClaimed)
+            return false;
+
+        quest.objective.AddProgress(amount);
+        OnQuestUpdated?.Invoke();
+        return true;
+    }
+
+    public bool IsQuestComplete(string questID)
+    {
+        QuestInstance quest = GetQuest(questID);
+        return quest != null && quest.status.isCompleted;
+    }
+
+    /// <summary>True if quest's configured target is empty or equals the event id.</summary>
+    public static bool TargetMatches(QuestDataSO data, string eventId)
+    {
+        if (data == null) return false;
+
+        string target = data.objectiveType switch
+        {
+            ObjectiveType.Kill => data.targetEntityId,
+            ObjectiveType.Dialogue => data.targetDialogueId,
+            ObjectiveType.Exploration => !string.IsNullOrEmpty(data.targetItemId)
+                ? data.targetItemId
+                : data.targetObjectiveId,
+            _ => null
+        };
+
+        return string.IsNullOrEmpty(target) || target == eventId;
+    }
+
     public void ClaimReward(string questID)
     {
         QuestInstance quest = GetQuest(questID);
@@ -121,4 +160,35 @@ public class QuestManager : MonoBehaviour
 
         OnQuestUpdated?.Invoke();
     }
+
+    public void ReportEnemyKilled(string enemyId)
+    {
+        if (!string.IsNullOrEmpty(enemyId))
+            DungeonCrawler.Core.GameEvents.RaiseEnemyKilled(enemyId);
+    }
+
+    public void ReportBossKilled(string bossId = "dungeon_boss")
+    {
+        ReportEnemyKilled(bossId);
+    }
+
+    public void ReportItemCollected(string itemId)
+    {
+        if (!string.IsNullOrEmpty(itemId))
+            DungeonCrawler.Core.GameEvents.RaiseItemCollected(itemId);
+    }
+
+    public void ReportDialogueCompleted(string dialogueId)
+    {
+        if (!string.IsNullOrEmpty(dialogueId))
+            DungeonCrawler.Core.GameEvents.RaiseDialogueEnded(dialogueId);
+    }
+
+    public void ReportObjectiveTriggered(string objectiveId)
+    {
+        if (!string.IsNullOrEmpty(objectiveId))
+            DungeonCrawler.Core.GameEvents.RaiseQuestObjectiveTriggered(objectiveId);
+    }
+
+    public bool AdvanceObjective(string questId, int amount = 1) => AdvanceQuest(questId, amount);
 }

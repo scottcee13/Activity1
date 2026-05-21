@@ -6,31 +6,47 @@ namespace DungeonCrawler.UI
 {
     public class HealthBarUI : MonoBehaviour
     {
-        [SerializeField] private HealthComponent target;
-        [SerializeField] private Image fillImage;
+        [SerializeField] protected HealthComponent target;
+        [SerializeField] protected Image fillImage;
 
-        private void Start()
+        protected virtual void Start()
         {
             if (target == null)
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
-                if (player != null) target = player.GetComponent<HealthComponent>();
+                if (player != null)
+                    target = player.GetComponent<HealthComponent>();
             }
 
             if (target != null)
-            {
-                target.OnHealthChanged += UpdateBar;
-                UpdateBar(target.CurrentHealth, target.MaxHealth);
-            }
+                Bind(target);
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (target != null)
                 target.OnHealthChanged -= UpdateBar;
         }
 
-        private void UpdateBar(int current, int max)
+        public void SetTarget(HealthComponent newTarget)
+        {
+            if (target != null)
+                target.OnHealthChanged -= UpdateBar;
+
+            target = newTarget;
+
+            if (target != null)
+                Bind(target);
+        }
+
+        protected void Bind(HealthComponent health)
+        {
+            target = health;
+            target.OnHealthChanged += UpdateBar;
+            UpdateBar(target.CurrentHealth, target.MaxHealth);
+        }
+
+        protected void UpdateBar(int current, int max)
         {
             if (fillImage != null && max > 0)
                 fillImage.fillAmount = (float)current / max;

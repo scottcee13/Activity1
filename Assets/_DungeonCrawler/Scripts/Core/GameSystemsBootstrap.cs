@@ -21,6 +21,9 @@ namespace DungeonCrawler.Core
             if (GetComponent<QuestEventBridge>() == null)
                 gameObject.AddComponent<QuestEventBridge>();
 
+            if (GetComponent<QuestChainController>() == null)
+                gameObject.AddComponent<QuestChainController>();
+
             ValidateQuestManager();
             ValidateControlPromptUI();
             ValidateQuestTracker();

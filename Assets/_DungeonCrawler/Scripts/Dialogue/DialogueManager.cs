@@ -48,6 +48,8 @@ namespace DungeonCrawler.Dialogue
             if (dialoguePanel != null) dialoguePanel.SetActive(true);
             if (GameManager.Instance != null) GameManager.Instance.SetGameplayPaused(true);
 
+            GameEvents.RaiseDialogueStarted(dialogue.dialogueId);
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 

@@ -1,3 +1,4 @@
+using DungeonCrawler.UI;
 using UnityEngine;
 
 namespace DungeonCrawler.Inventory
@@ -8,6 +9,8 @@ namespace DungeonCrawler.Inventory
         [SerializeField] private ItemDataSO item;
         [SerializeField] private bool destroyOnPickup = true;
         [SerializeField] private GameObject promptObject;
+        [SerializeField] private string promptMessage = "Press E to Pick Up";
+        [SerializeField] private AudioClip pickupSfx;
 
         private void Reset()
         {
@@ -17,7 +20,11 @@ namespace DungeonCrawler.Inventory
         private void OnTriggerStay(Collider other)
         {
             if (!other.CompareTag("Player")) return;
-            if (promptObject != null) promptObject.SetActive(true);
+
+            if (promptObject != null)
+                promptObject.SetActive(true);
+            else if (InteractPromptUI.Instance != null)
+                InteractPromptUI.Instance.Show(promptMessage);
 
             if (Input.GetKeyDown(KeyCode.E))
                 TryPickup();
@@ -26,7 +33,11 @@ namespace DungeonCrawler.Inventory
         private void OnTriggerExit(Collider other)
         {
             if (!other.CompareTag("Player")) return;
-            if (promptObject != null) promptObject.SetActive(false);
+
+            if (promptObject != null)
+                promptObject.SetActive(false);
+            else if (InteractPromptUI.Instance != null)
+                InteractPromptUI.Instance.Hide();
         }
 
         private void TryPickup()
@@ -35,8 +46,11 @@ namespace DungeonCrawler.Inventory
 
             InventoryManager.Instance.AddItem(item);
 
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.PlaySFX(null);
+            if (AudioManager.Instance != null && pickupSfx != null)
+                AudioManager.Instance.PlaySFX(pickupSfx);
+
+            if (InteractPromptUI.Instance != null)
+                InteractPromptUI.Instance.ForceHide();
 
             if (destroyOnPickup)
                 Destroy(gameObject);

@@ -5,40 +5,45 @@ using UnityEngine.AI;
 
 namespace DungeonCrawler.Boss
 {
-    /// <summary>
-    /// Boss AI: chase player, alternate melee/ranged by phase, spawn adds via EnemySpawner.
-    /// </summary>
     [RequireComponent(typeof(NavMeshAgent))]
     public class BossController : MonoBehaviour
     {
         [SerializeField] private BossDataSO data;
         [SerializeField] private Transform player;
         [SerializeField] private float meleeRange = 3f;
+        [SerializeField] private float knockbackForce = 6f;
         [SerializeField] private Transform rangedFirePoint;
         [SerializeField] private Combat.Projectile projectilePrefab;
         [SerializeField] private EnemySpawner addSpawner;
         [SerializeField] private Animator animator;
+        [SerializeField] private bool waitForArenaActivation = true;
 
         private NavMeshAgent agent;
         private HealthComponent health;
         private float attackTimer;
         private int phase = 1;
+        private bool isActivated;
+        private bool agentReady;
 
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             health = GetComponent<HealthComponent>();
 
-            if (health != null && data != null)
-            {
-                // Max health configured on HealthComponent in inspector; sync id
-            }
-
             if (player == null)
             {
                 GameObject p = GameObject.FindGameObjectWithTag("Player");
                 if (p != null) player = p.transform;
             }
+
+            if (waitForArenaActivation)
+            {
+                isActivated = false;
+                if (agent != null)
+                    agent.enabled = false;
+            }
+            else
+                ActivateBoss();
         }
 
         private void Start()
@@ -53,13 +58,37 @@ namespace DungeonCrawler.Boss
                 health.OnHealthChanged -= OnHealthChanged;
         }
 
+        public void ActivateBoss()
+        {
+            isActivated = true;
+
+            if (agent == null) return;
+
+            agent.enabled = true;
+
+            if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 8f, NavMesh.AllAreas))
+            {
+                agent.Warp(hit.position);
+                agent.isStopped = false;
+                agentReady = agent.isOnNavMesh;
+            }
+            else
+            {
+                agentReady = false;
+                agent.enabled = false;
+                Debug.LogWarning("[BossController] Boss is not on NavMesh. Bake NavMesh or move boss onto walkable floor.");
+            }
+        }
+
         private void Update()
         {
-            if (health != null && health.IsDead) return;
+            if (!isActivated || health != null && health.IsDead) return;
             if (player == null) return;
 
             float dist = Vector3.Distance(transform.position, player.position);
-            agent.SetDestination(player.position);
+
+            if (agentReady && agent != null && agent.enabled && agent.isOnNavMesh)
+                agent.SetDestination(player.position);
 
             attackTimer -= Time.deltaTime;
             if (attackTimer > 0f) return;
@@ -76,11 +105,8 @@ namespace DungeonCrawler.Boss
         {
             if (animator != null) animator.SetTrigger("Attack");
 
-            HealthComponent playerHealth = player.GetComponent<HealthComponent>();
-            if (playerHealth == null) playerHealth = player.GetComponentInParent<HealthComponent>();
-
             int dmg = data != null ? data.meleeDamage : 15;
-            playerHealth?.TakeDamage(dmg);
+            CombatDamage.Deal(player, dmg, transform, knockbackForce);
         }
 
         private void RangedAttack()

@@ -17,5 +17,9 @@ MonoBehaviour:
   description: First Blood
   objectiveType: 0
   requiredAmount: 1
+  targetEntityId: first_enemy
+  targetDialogueId: 
+  targetItemId: 
+  targetObjectiveId: 
   goldReward: 0
   expReward: 0

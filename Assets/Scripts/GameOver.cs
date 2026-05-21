@@ -22,6 +22,10 @@ public class GameOver : MonoBehaviour
 
     private void GameOverUI()
     {
-        GameOverPanel.SetActive(true);
+        if (GameOverPanel != null)
+            GameOverPanel.SetActive(true);
+
+        if (DungeonCrawler.UI.UIManager.Instance != null)
+            DungeonCrawler.UI.UIManager.Instance.ShowGameOver();
     }
 }

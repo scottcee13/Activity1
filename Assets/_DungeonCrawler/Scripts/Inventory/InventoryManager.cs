@@ -13,6 +13,7 @@ namespace DungeonCrawler.Inventory
         public static InventoryManager Instance { get; private set; }
 
         [SerializeField] private ItemDatabase legacyDatabase;
+        [SerializeField] private ItemRegistry itemRegistry;
 
         private readonly List<ItemDataSO> items = new List<ItemDataSO>();
         private WeaponData equippedWeapon;
@@ -41,7 +42,18 @@ namespace DungeonCrawler.Inventory
             return false;
         }
 
-        public void AddItem(ItemDataSO item)
+        public List<string> GetCollectedItemIds()
+        {
+            var ids = new List<string>();
+            foreach (ItemDataSO item in items)
+            {
+                if (item != null && !string.IsNullOrEmpty(item.itemId))
+                    ids.Add(item.itemId);
+            }
+            return ids;
+        }
+
+        public void AddItem(ItemDataSO item, bool raiseEvents = true)
         {
             if (item == null) return;
             if (items.Contains(item)) return;
@@ -56,9 +68,34 @@ namespace DungeonCrawler.Inventory
                 EquipWeapon(item.linkedWeapon);
             }
 
-            OnInventoryChanged?.Invoke();
-            GameEvents.RaiseItemCollected(item.itemId);
+            if (raiseEvents)
+            {
+                OnInventoryChanged?.Invoke();
+                GameEvents.RaiseItemCollected(item.itemId);
+            }
+
             Debug.Log($"[Inventory] Added {item.displayName}");
+        }
+
+        public void LoadItemsFromIds(List<string> itemIds)
+        {
+            items.Clear();
+            if (itemIds == null || itemRegistry == null) return;
+
+            foreach (string id in itemIds)
+            {
+                ItemDataSO item = itemRegistry.GetById(id);
+                if (item != null)
+                    AddItem(item, raiseEvents: false);
+            }
+
+            OnInventoryChanged?.Invoke();
+        }
+
+        public void ClearItems()
+        {
+            items.Clear();
+            OnInventoryChanged?.Invoke();
         }
 
         public void EquipWeapon(WeaponData weapon)

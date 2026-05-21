@@ -2,9 +2,6 @@ using UnityEngine;
 
 namespace DungeonCrawler.Combat
 {
-    /// <summary>
-    /// Bridges legacy EnemyHealth to HealthComponent for the new combat pipeline.
-    /// </summary>
     [RequireComponent(typeof(HealthComponent))]
     public class EnemyHealthBridge : MonoBehaviour
     {
@@ -17,16 +14,25 @@ namespace DungeonCrawler.Combat
             health = GetComponent<HealthComponent>();
         }
 
-        private void Update()
+        private void Start()
         {
             if (legacy == null || health == null) return;
+
+            legacy.maxHP = health.MaxHealth;
             legacy.currentHP = health.CurrentHealth;
+            health.OnHealthChanged += OnHealthChanged;
         }
 
-        public void SyncFromLegacy()
+        private void OnDestroy()
         {
-            if (legacy != null && health != null)
-                health.TakeDamage(legacy.maxHP - legacy.currentHP);
+            if (health != null)
+                health.OnHealthChanged -= OnHealthChanged;
+        }
+
+        private void OnHealthChanged(int current, int max)
+        {
+            if (legacy != null)
+                legacy.currentHP = current;
         }
     }
 }

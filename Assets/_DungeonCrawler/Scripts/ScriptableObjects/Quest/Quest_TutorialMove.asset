@@ -17,5 +17,9 @@ MonoBehaviour:
   description: Learn Movement
   objectiveType: 2
   requiredAmount: 1
+  targetEntityId: 
+  targetDialogueId: 
+  targetItemId: 
+  targetObjectiveId: walk_to_plaza
   goldReward: 0
   expReward: 0

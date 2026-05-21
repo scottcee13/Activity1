@@ -17,5 +17,9 @@ MonoBehaviour:
   description: Defeat the Guardian
   objectiveType: 0
   requiredAmount: 1
+  targetEntityId: dungeon_boss
+  targetDialogueId: 
+  targetItemId: 
+  targetObjectiveId: 
   goldReward: 0
   expReward: 0

@@ -17,5 +17,9 @@ MonoBehaviour:
   description: Find the Key
   objectiveType: 2
   requiredAmount: 1
+  targetEntityId: 
+  targetDialogueId: 
+  targetItemId: ancient_key
+  targetObjectiveId: 
   goldReward: 0
   expReward: 0

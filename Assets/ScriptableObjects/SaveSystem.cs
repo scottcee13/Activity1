@@ -1,6 +1,8 @@
 using System.IO;
+using DungeonCrawler.Inventory;
+using DungeonCrawler.Quests;
 using UnityEngine;
-using System.Collections;
+
 public class SaveSystem : MonoBehaviour
 {
     public ItemDatabase database;
@@ -10,18 +12,10 @@ public class SaveSystem : MonoBehaviour
     void Awake()
     {
         path = Application.persistentDataPath + "/save.json";
-        
 
         if (instance == null) instance = this;
         else Destroy(gameObject);
-
     }
-
-    //private IEnumerator Start()
-    //{
-    //    yield return null; // wait 1 frame
-    //    LoadGame();
-    //}
 
     private void Start()
     {
@@ -39,20 +33,21 @@ public class SaveSystem : MonoBehaviour
         SaveData data = new SaveData();
 
         foreach (var weapon in PlayerInventory.instance.ownedWeapons)
-        {
             data.ownedWeaponIDs.Add(weapon.weaponID);
-        }
 
         if (QuestManager.Instance != null)
-        {
             data.questStatuses = QuestManager.Instance.GetQuestStatuses();
-        }
+
+        if (InventoryManager.Instance != null)
+            data.collectedItemIds = InventoryManager.Instance.GetCollectedItemIds();
+
+        if (QuestChainController.Instance != null)
+            data.questChainIndex = QuestChainController.Instance.GetChainIndexForSave();
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(path, json);
 
         Debug.Log("Game saved to: " + path);
-        Debug.Log(path);
     }
 
     public void LoadGame()
@@ -62,6 +57,7 @@ public class SaveSystem : MonoBehaviour
             Debug.Log("No save file found at: " + path);
             return;
         }
+
         if (database == null)
         {
             Debug.LogWarning("Load failed: database is null");
@@ -74,8 +70,6 @@ public class SaveSystem : MonoBehaviour
             return;
         }
 
-
-
         string json = File.ReadAllText(path);
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
@@ -84,44 +78,40 @@ public class SaveSystem : MonoBehaviour
         foreach (string id in data.ownedWeaponIDs)
         {
             WeaponData weapon = database.GetWeaponByID(id);
-
             if (weapon != null)
-            {
                 PlayerInventory.instance.AddWeapon(weapon);
-            }
             else
-            {
                 Debug.LogWarning("Weapon not found in database: " + id);
-            }
         }
+
         if (QuestManager.Instance != null && data.questStatuses != null)
-        {
             QuestManager.Instance.LoadQuestStatuses(data.questStatuses);
-        }
-        else
-        {
-            Debug.LogWarning("QuestManager not ready or questStatuses is null");
-        }
-        Debug.Log("Loaded weapons: " + data.ownedWeaponIDs.Count);
-        Debug.Log("Loaded quests: " + (data.questStatuses != null ? data.questStatuses.Count : 0));
+
+        if (InventoryManager.Instance != null && data.collectedItemIds != null)
+            InventoryManager.Instance.LoadItemsFromIds(data.collectedItemIds);
+
+        if (QuestChainController.Instance != null)
+            QuestChainController.Instance.SyncChainIndexFromQuests();
+
+        Debug.Log($"Loaded save — weapons: {data.ownedWeaponIDs.Count}, quests: {data.questStatuses?.Count ?? 0}, items: {data.collectedItemIds?.Count ?? 0}");
     }
 
     public void ResetSave()
     {
         if (File.Exists(path))
-        {
             File.Delete(path);
-        }
 
         if (PlayerInventory.instance != null)
-        {
             PlayerInventory.instance.ownedWeapons.Clear();
-        }
+
+        if (InventoryManager.Instance != null)
+            InventoryManager.Instance.ClearItems();
 
         if (QuestManager.Instance != null)
-        {
             QuestManager.Instance.ResetAllQuestProgress();
-        }
+
+        if (QuestChainController.Instance != null)
+            QuestChainController.Instance.LoadChainIndex(0);
 
         Debug.Log("Save file deleted and runtime data reset.");
     }

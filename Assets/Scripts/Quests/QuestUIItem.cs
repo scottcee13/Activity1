@@ -12,37 +12,51 @@ public class QuestUIItem : MonoBehaviour
 
     private string questID;
 
-    public void Setup(QuestInstance quest)
+    public void Setup(QuestInstance quest, bool isActiveQuest = false)
     {
+        if (quest == null || quest.data == null) return;
+
         questID = quest.data.questID;
 
-        titleText.text = quest.data.questTitle;
-        descriptionText.text = quest.data.description;
-        progressText.text = $"{quest.status.currentAmount}/{quest.data.requiredAmount}";
+        if (titleText != null)
+            titleText.text = isActiveQuest ? $"► {quest.data.questTitle}" : quest.data.questTitle;
 
-        claimButton.gameObject.SetActive(quest.status.isCompleted && !quest.status.rewardClaimed);
-        claimButton.onClick.RemoveAllListeners();
-        claimButton.onClick.AddListener(ClaimReward);
+        if (descriptionText != null)
+            descriptionText.text = quest.data.description;
 
-        if (quest.status.rewardClaimed)
+        if (progressText != null)
         {
-            canvasGroup.alpha = 0.5f;
-            claimButton.gameObject.SetActive(false);
-            progressText.text = "Completed";
+            if (quest.status.isCompleted)
+                progressText.text = quest.status.rewardClaimed ? "Completed" : "Complete — claim reward";
+            else
+                progressText.text = $"{quest.status.currentAmount} / {quest.data.requiredAmount}";
         }
-        else if (quest.status.isCompleted)
+
+        if (claimButton != null)
         {
-            canvasGroup.alpha = 0.7f;
-            progressText.text = "Completed - Ready to Claim";
+            bool showClaim = quest.status.isCompleted && !quest.status.rewardClaimed;
+            claimButton.gameObject.SetActive(showClaim);
+            claimButton.onClick.RemoveAllListeners();
+            if (showClaim)
+                claimButton.onClick.AddListener(ClaimReward);
         }
-        else
+
+        if (canvasGroup != null)
         {
-            canvasGroup.alpha = 1f;
+            if (quest.status.rewardClaimed)
+                canvasGroup.alpha = 0.45f;
+            else if (quest.status.isCompleted)
+                canvasGroup.alpha = 0.75f;
+            else if (isActiveQuest)
+                canvasGroup.alpha = 1f;
+            else
+                canvasGroup.alpha = 0.85f;
         }
     }
 
     private void ClaimReward()
     {
-        QuestManager.Instance.ClaimReward(questID);
+        if (QuestManager.Instance != null)
+            QuestManager.Instance.ClaimReward(questID);
     }
 }

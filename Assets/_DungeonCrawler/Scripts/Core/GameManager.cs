@@ -69,6 +69,7 @@ namespace DungeonCrawler.Core
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             GameEvents.RaiseVictory();
+            UI.UIManager.Instance?.ShowVictory();
         }
 
         private void HandlePlayerDeath()
@@ -78,6 +79,7 @@ namespace DungeonCrawler.Core
             SetGameplayPaused(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            UI.UIManager.Instance?.ShowGameOver();
         }
 
         public void RestartDungeon()

@@ -17,5 +17,9 @@ MonoBehaviour:
   description: Speak to Guide
   objectiveType: 1
   requiredAmount: 1
+  targetEntityId: 
+  targetDialogueId: tutorial_intro
+  targetItemId: 
+  targetObjectiveId: 
   goldReward: 0
   expReward: 0

@@ -10,97 +10,105 @@ public class EnemyFSM : MonoBehaviour
     public float attackRange = 2f;
 
     [Header("Idle Settings")]
-    public float idleDuration = 3f; // How long to wait
-    private float idleTimer;        // The actual clock
+    public float idleDuration = 3f;
 
-    EnemyMovement movement;
-    EnemyAttack attack;
-    Animator animator;
+    private float idleTimer;
+    private EnemyMovement movement;
+    private EnemyAttack attack;
+    private Animator animator;
+    private DungeonCrawler.Combat.HealthComponent health;
 
-    void Start()
+    private void Start()
     {
         movement = GetComponent<EnemyMovement>();
         attack = GetComponent<EnemyAttack>();
         animator = GetComponent<Animator>();
+        health = GetComponent<DungeonCrawler.Combat.HealthComponent>();
+
+        if (player == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+                player = playerObj.transform;
+        }
 
         currentState = EnemyState.Idle;
     }
 
-    void Update()
+    private void Update()
     {
+        if (health != null && health.IsDead) return;
+        if (player == null) return;
+
         float distance = Vector3.Distance(transform.position, player.position);
 
         switch (currentState)
         {
             case EnemyState.Idle:
-                animator.SetBool("isPatrolling", false);
-                animator.SetBool("isChasing", false);
+                if (animator != null)
+                {
+                    animator.SetBool("isPatrolling", false);
+                    animator.SetBool("isChasing", false);
+                }
 
-                // 1. Always check if we should Chase first (Interrupt the wait)
                 if (distance < detectionRange)
                 {
-                    idleTimer = 0; // Reset timer for next time
+                    idleTimer = 0;
                     currentState = EnemyState.Chase;
                 }
                 else
                 {
-                    // 2. Otherwise, count up the timer
                     idleTimer += Time.deltaTime;
-
                     if (idleTimer >= idleDuration)
                     {
-                        idleTimer = 0; // Reset timer
+                        idleTimer = 0;
                         currentState = EnemyState.Patrol;
                     }
                 }
                 break;
 
             case EnemyState.Patrol:
-                animator.SetBool("isPatrolling", true);
-                animator.SetBool("isChasing", false);
-
-                // Capture the "Reached" signal from the movement script
-                bool reachedWaypoint = movement.Patrol();
-
-                if (reachedWaypoint)
+                if (animator != null)
                 {
-                    currentState = EnemyState.Idle; // This starts the idle timer automatically!
+                    animator.SetBool("isPatrolling", true);
+                    animator.SetBool("isChasing", false);
                 }
+
+                if (movement != null && movement.Patrol())
+                    currentState = EnemyState.Idle;
 
                 if (distance < detectionRange)
-                {
                     currentState = EnemyState.Chase;
-                }
                 break;
 
             case EnemyState.Chase:
-                animator.SetBool("isPatrolling", false);
-                animator.SetBool("isChasing", true);
+                if (animator != null)
+                {
+                    animator.SetBool("isPatrolling", false);
+                    animator.SetBool("isChasing", true);
+                }
 
-                movement.MoveTo(player.position);
+                if (movement != null)
+                    movement.MoveTo(player.position);
 
                 if (distance <= attackRange)
-                {
                     currentState = EnemyState.Attack;
-                }
-
-                if (distance > detectionRange)
-                {
-                    // When the player escapes, we go to Idle to "rest"
+                else if (distance > detectionRange)
                     currentState = EnemyState.Idle;
-                }
                 break;
 
             case EnemyState.Attack:
-                animator.SetBool("isPatrolling", false);
-                animator.SetBool("isChasing", false);
+                if (animator != null)
+                {
+                    animator.SetBool("isPatrolling", false);
+                    animator.SetBool("isChasing", false);
+                }
 
-                attack.Attack();
+                if (attack != null)
+                    attack.Attack();
 
                 if (distance > attackRange)
-                {
                     currentState = EnemyState.Chase;
-                }
                 break;
         }
     }

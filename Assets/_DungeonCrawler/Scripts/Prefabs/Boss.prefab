@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonCrawler.Combat.HealthComponent
   maxHealth: 50
-  entityId: goblin
+  entityId: dungeon_boss
   isPlayer: 0
 --- !u!114 &7583322962439540428
 MonoBehaviour:

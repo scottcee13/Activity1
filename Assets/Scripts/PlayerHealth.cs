@@ -31,20 +31,28 @@ public class PlayerHealth : MonoBehaviour
         OnPlayerDeath?.Invoke();
     }
 
+    public void ApplyDamage(int dmg)
+    {
+        if (health <= 0 || dmg <= 0) return;
+        Damage(dmg);
+    }
+
+    public void SyncFromHealthComponent(int currentHealth)
+    {
+        health = Mathf.Clamp(currentHealth, 0, maxHealth);
+    }
+
     void Damage(int dmg)
     {
         health -= dmg;
-        Debug.Log(health);
         OnPlayerDamaged?.Invoke(health);
         if (health <= 0)
         {
             Die();
+            return;
         }
-        if (health <= maxHealth * 0.3f && !isInjured)
-        {
-            //isInjured = true;
-            //animator.SetBool("Injured",true);
+
+        if (health <= maxHealth * 0.3f && !isInjured && animator != null)
             animator.SetLayerWeight(1, 1f);
-        }
     }
 }

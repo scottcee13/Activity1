@@ -6,30 +6,30 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     [Header("Mixer")]
-    [Tooltip("Assign Assets/Audio/AudioMixer.mixer — required for volume sliders.")]
+    [Tooltip("Assign Assets/Audio/AudioMixer.mixer")]
     public AudioMixer audioMixer;
 
-    [Header("Audio Sources")]
+    [Header("Audio Sources (auto-created if empty)")]
     public AudioSource musicSource;
     public AudioSource ambientSource;
     public AudioSource uiSource;
     public AudioSource sfxSource;
     public AudioSource voiceSource;
 
-    [Header("Demo Clips")]
+    [Header("Optional default clips")]
     public AudioClip musicDemo;
     public AudioClip sfxDemo;
     public AudioClip voiceDemo;
     public AudioClip uiDemo;
     public AudioClip ambientDemo;
 
-    private const string MASTER_KEY = "MasterVolume";
-    private const string MUSIC_KEY = "MusicVolume";
-    private const string SFX_KEY = "SFXVolume";
-    private const string VOICE_KEY = "VoiceVolume";
-    private const string UI_KEY = "UIVolume";
-    private const string AMBIENT_KEY = "AmbientVolume";
-    private const string MUTE_ALL_KEY = "MuteAll";
+    private const string MasterKey = "MasterVolume";
+    private const string MusicKey = "MusicVolume";
+    private const string SfxKey = "SFXVolume";
+    private const string VoiceKey = "VoiceVolume";
+    private const string UiKey = "UIVolume";
+    private const string AmbientKey = "AmbientVolume";
+    private const string MuteAllKey = "MuteAll";
 
     private bool isMuted;
     private static bool mixerWarningLogged;
@@ -49,13 +49,14 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        EnsureAudioSources();
         LoadVolumes();
     }
 
     private void OnValidate()
     {
 #if UNITY_EDITOR
-        if (audioMixer == null && !mixerWarningLogged)
+        if (audioMixer == null)
         {
             AudioMixer mixer = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioMixer>(
                 "Assets/Audio/AudioMixer.mixer");
@@ -65,68 +66,69 @@ public class AudioManager : MonoBehaviour
 #endif
     }
 
-    public void SetMasterVolume(float value)
+    private void EnsureAudioSources()
     {
-        SetVolume("MasterVolume", MASTER_KEY, value);
-        if (!isMuted)
-            SetMixerOnly("MasterVolume", value);
+        musicSource = EnsureSource(musicSource, "MusicSource", "Music");
+        ambientSource = EnsureSource(ambientSource, "AmbientSource", "Ambient");
+        sfxSource = EnsureSource(sfxSource, "SFXSource", "SFX");
+        uiSource = EnsureSource(uiSource, "UISource", "UI");
+        voiceSource = EnsureSource(voiceSource, "VoiceSource", "Voice");
     }
 
-    public void SetMusicVolume(float value)
+    private AudioSource EnsureSource(AudioSource existing, string childName, string mixerGroupName)
     {
-        SetVolume("MusicVolume", MUSIC_KEY, value);
-        if (!isMuted)
-            SetMixerOnly("MusicVolume", value);
+        if (existing != null)
+        {
+            AssignMixerGroup(existing, mixerGroupName);
+            return existing;
+        }
+
+        Transform child = transform.Find(childName);
+        if (child != null)
+            existing = child.GetComponent<AudioSource>();
+
+        if (existing == null)
+        {
+            GameObject go = new GameObject(childName);
+            go.transform.SetParent(transform, false);
+            existing = go.AddComponent<AudioSource>();
+            existing.playOnAwake = false;
+        }
+
+        AssignMixerGroup(existing, mixerGroupName);
+        return existing;
     }
 
-    public void SetSFXVolume(float value)
+    private void AssignMixerGroup(AudioSource source, string groupName)
     {
-        SetVolume("SFXVolume", SFX_KEY, value);
-        if (!isMuted)
-            SetMixerOnly("SFXVolume", value);
+        if (source == null || audioMixer == null) return;
+
+        AudioMixerGroup[] groups = audioMixer.FindMatchingGroups(groupName);
+        if (groups != null && groups.Length > 0)
+            source.outputAudioMixerGroup = groups[0];
     }
 
-    public void SetVoiceVolume(float value)
-    {
-        SetVolume("VoiceVolume", VOICE_KEY, value);
-        if (!isMuted)
-            SetMixerOnly("VoiceVolume", value);
-    }
-
-    public void SetUIVolume(float value)
-    {
-        SetVolume("UIVolume", UI_KEY, value);
-        if (!isMuted)
-            SetMixerOnly("UIVolume", value);
-    }
-
-    public void SetAmbientVolume(float value)
-    {
-        SetVolume("AmbientVolume", AMBIENT_KEY, value);
-        if (!isMuted)
-            SetMixerOnly("AmbientVolume", value);
-    }
+    public void SetMasterVolume(float value) => SetVolume("MasterVolume", MasterKey, value);
+    public void SetMusicVolume(float value) => SetVolume("MusicVolume", MusicKey, value);
+    public void SetSFXVolume(float value) => SetVolume("SFXVolume", SfxKey, value);
+    public void SetDialogueVolume(float value) => SetVolume("VoiceVolume", VoiceKey, value);
+    public void SetVoiceVolume(float value) => SetDialogueVolume(value);
+    public void SetUIVolume(float value) => SetVolume("UIVolume", UiKey, value);
+    public void SetAmbientVolume(float value) => SetVolume("AmbientVolume", AmbientKey, value);
 
     private void SetVolume(string exposedParam, string prefKey, float sliderValue)
     {
         PlayerPrefs.SetFloat(prefKey, Mathf.Clamp(sliderValue, 0.0001f, 1f));
         PlayerPrefs.Save();
 
-        if (!HasMixer) return;
-
-        float dB = SliderToDb(sliderValue);
-        audioMixer.SetFloat(exposedParam, dB);
+        if (!isMuted && HasMixer)
+            audioMixer.SetFloat(exposedParam, SliderToDb(sliderValue));
     }
 
-    public float GetSavedVolume(string key, float defaultValue = 1f)
-    {
-        return PlayerPrefs.GetFloat(key, defaultValue);
-    }
+    public float GetSavedVolume(string key, float defaultValue = 1f) =>
+        PlayerPrefs.GetFloat(key, defaultValue);
 
-    public bool GetMuteState()
-    {
-        return PlayerPrefs.GetInt(MUTE_ALL_KEY, 0) == 1;
-    }
+    public bool GetMuteState() => PlayerPrefs.GetInt(MuteAllKey, 0) == 1;
 
     public void LoadVolumes()
     {
@@ -148,18 +150,17 @@ public class AudioManager : MonoBehaviour
     {
         if (!HasMixer) return;
 
-        SetMixerOnly("MasterVolume", GetSavedVolume(MASTER_KEY));
-        SetMixerOnly("MusicVolume", GetSavedVolume(MUSIC_KEY));
-        SetMixerOnly("SFXVolume", GetSavedVolume(SFX_KEY));
-        SetMixerOnly("VoiceVolume", GetSavedVolume(VOICE_KEY));
-        SetMixerOnly("UIVolume", GetSavedVolume(UI_KEY));
-        SetMixerOnly("AmbientVolume", GetSavedVolume(AMBIENT_KEY));
+        SetMixerOnly("MasterVolume", GetSavedVolume(MasterKey));
+        SetMixerOnly("MusicVolume", GetSavedVolume(MusicKey));
+        SetMixerOnly("SFXVolume", GetSavedVolume(SfxKey));
+        SetMixerOnly("VoiceVolume", GetSavedVolume(VoiceKey));
+        SetMixerOnly("UIVolume", GetSavedVolume(UiKey));
+        SetMixerOnly("AmbientVolume", GetSavedVolume(AmbientKey));
     }
 
     private void ApplyMutedMixerState()
     {
         if (!HasMixer) return;
-
         SetMixerOnly("MasterVolume", 0.0001f);
         SetMixerOnly("MusicVolume", 0.0001f);
         SetMixerOnly("SFXVolume", 0.0001f);
@@ -174,25 +175,20 @@ public class AudioManager : MonoBehaviour
         audioMixer.SetFloat(exposedParam, SliderToDb(sliderValue));
     }
 
-    private static float SliderToDb(float sliderValue)
-    {
-        return Mathf.Log10(Mathf.Clamp(sliderValue, 0.0001f, 1f)) * 20f;
-    }
+    private static float SliderToDb(float sliderValue) =>
+        Mathf.Log10(Mathf.Clamp(sliderValue, 0.0001f, 1f)) * 20f;
 
     private static void LogMixerMissingOnce()
     {
         if (mixerWarningLogged) return;
         mixerWarningLogged = true;
-        Debug.LogWarning(
-            "[AudioManager] Audio Mixer is not assigned. " +
-            "Select AudioManager → drag Assets/Audio/AudioMixer.mixer into the Audio Mixer field. " +
-            "Volume sliders will save to PlayerPrefs but won't affect the mixer until assigned.");
+        Debug.LogWarning("[AudioManager] Assign Assets/Audio/AudioMixer.mixer in the inspector.");
     }
 
     public void MuteAll()
     {
         isMuted = !isMuted;
-        PlayerPrefs.SetInt(MUTE_ALL_KEY, isMuted ? 1 : 0);
+        PlayerPrefs.SetInt(MuteAllKey, isMuted ? 1 : 0);
         PlayerPrefs.Save();
 
         if (!HasMixer) return;
@@ -203,12 +199,20 @@ public class AudioManager : MonoBehaviour
             ApplySavedVolumesToMixer();
     }
 
+    public bool IsMuted() => isMuted;
+
     public void PlayMusic(AudioClip clip)
     {
         if (clip == null || musicSource == null) return;
         musicSource.clip = clip;
         musicSource.loop = true;
         musicSource.Play();
+    }
+
+    public void StopMusic()
+    {
+        if (musicSource != null)
+            musicSource.Stop();
     }
 
     public void PlayAmbient(AudioClip clip)
@@ -219,12 +223,10 @@ public class AudioManager : MonoBehaviour
         ambientSource.Play();
     }
 
-    public bool IsMuted() => isMuted;
-
-    public void PlayUI(AudioClip clip)
+    public void StopAmbient()
     {
-        if (clip == null || uiSource == null) return;
-        uiSource.PlayOneShot(clip);
+        if (ambientSource != null)
+            ambientSource.Stop();
     }
 
     public void PlaySFX(AudioClip clip)
@@ -232,6 +234,14 @@ public class AudioManager : MonoBehaviour
         if (clip == null || sfxSource == null) return;
         sfxSource.PlayOneShot(clip);
     }
+
+    public void PlayUI(AudioClip clip)
+    {
+        if (clip == null || uiSource == null) return;
+        uiSource.PlayOneShot(clip);
+    }
+
+    public void PlayDialogue(AudioClip clip) => PlayVoice(clip);
 
     public void PlayVoice(AudioClip clip)
     {
