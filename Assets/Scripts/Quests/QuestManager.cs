@@ -37,10 +37,18 @@ public class QuestManager : MonoBehaviour
 
         foreach (QuestDataSO questData in allQuestData)
         {
-            QuestStatus status = new QuestStatus(questData.questID);
-            QuestInstance instance = new QuestInstance(questData, status);
-            questDict.Add(questData.questID, instance);
+            if (questData == null || string.IsNullOrEmpty(questData.questID)) continue;
+            RegisterQuest(questData);
         }
+    }
+
+    public void RegisterQuest(QuestDataSO questData)
+    {
+        if (questData == null || string.IsNullOrEmpty(questData.questID)) return;
+        if (questDict.ContainsKey(questData.questID)) return;
+
+        QuestStatus status = new QuestStatus(questData.questID);
+        questDict.Add(questData.questID, new QuestInstance(questData, status));
     }
 
     public List<QuestInstance> GetAllQuests()

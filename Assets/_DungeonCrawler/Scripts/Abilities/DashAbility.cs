@@ -1,3 +1,4 @@
+using DungeonCrawler.Player;
 using UnityEngine;
 
 namespace DungeonCrawler.Abilities
@@ -11,16 +12,23 @@ namespace DungeonCrawler.Abilities
         [SerializeField] private float dashDuration = 0.2f;
 
         private CharacterController controller;
+        private PlayerMovementLock movementLock;
         private Vector3 dashVelocity;
         private float dashTimer;
 
         private void Awake()
         {
             controller = GetComponent<CharacterController>();
+            movementLock = GetComponent<PlayerMovementLock>();
         }
 
         protected override bool CanExecute()
         {
+            if (movementLock != null && movementLock.IsLocked) return false;
+
+            PlayerCombat combat = GetComponent<PlayerCombat>();
+            if (combat != null && combat.IsAttacking) return false;
+
             return controller != null && dashTimer <= 0f;
         }
 

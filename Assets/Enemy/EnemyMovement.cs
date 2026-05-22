@@ -1,50 +1,66 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
     public float speed = 3f;
     public Transform[] patrolPoints;
 
-    int patrolIndex = 0;
+    private int patrolIndex;
+    private CharacterController controller;
+    private NavMeshAgent agent;
 
-    CharacterController controller;
-
-    void Start()
+    private void Start()
     {
         controller = GetComponent<CharacterController>();
+        agent = GetComponent<NavMeshAgent>();
+
+        if (agent != null)
+            agent.speed = speed;
     }
 
     public void MoveTo(Vector3 target)
     {
-        Vector3 direction = (target - transform.position).normalized;
-        direction.y = 0;
-
-        controller.Move(direction * speed * Time.deltaTime);
-
-        if (direction != Vector3.zero)
+        if (agent != null && agent.enabled && agent.isOnNavMesh)
         {
-            transform.forward = direction;
+            agent.isStopped = false;
+            agent.speed = speed;
+            agent.SetDestination(target);
+
+            Vector3 vel = agent.velocity;
+            vel.y = 0f;
+            if (vel.sqrMagnitude > 0.1f)
+                transform.forward = vel.normalized;
+
+            return;
         }
+
+        if (controller == null) return;
+
+        Vector3 direction = (target - transform.position);
+        direction.y = 0f;
+        if (direction.sqrMagnitude < 0.01f) return;
+
+        direction.Normalize();
+        controller.Move(direction * speed * Time.deltaTime);
+        transform.forward = direction;
     }
 
-    public bool Patrol() // Changed from void to bool
+    public bool Patrol()
     {
-        if (patrolPoints.Length == 0) return false;
+        if (patrolPoints == null || patrolPoints.Length == 0) return false;
 
         Transform target = patrolPoints[patrolIndex];
+        if (target == null) return false;
+
         MoveTo(target.position);
 
-        // Check if we are close enough to the waypoint
         if (Vector3.Distance(transform.position, target.position) < 1f)
         {
-            // Prepare the next index for NEXT time we patrol
-            patrolIndex++;
-            if (patrolIndex >= patrolPoints.Length)
-                patrolIndex = 0;
-
-            return true; // We reached the point!
+            patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
+            return true;
         }
 
-        return false; // We are still walking
+        return false;
     }
 }

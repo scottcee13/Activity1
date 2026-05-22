@@ -4,7 +4,8 @@ public enum ObjectiveType
 {
     Kill,
     Dialogue,
-    Exploration
+    Exploration,
+    EquipWeapon
 }
 
 [CreateAssetMenu(fileName = "NewQuest", menuName = "Quests/Quest Data")]

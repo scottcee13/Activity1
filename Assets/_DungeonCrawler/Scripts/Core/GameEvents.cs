@@ -12,6 +12,7 @@ namespace DungeonCrawler.Core
         public static event Action<string> OnEnemyKilled;
         public static event Action<string> OnItemCollected;
         public static event Action<WeaponData> OnWeaponEquipped;
+        public static event Action OnWeaponUnequipped;
         public static event Action<string> OnDialogueStarted;
         public static event Action<string> OnDialogueEnded;
         public static event Action<string, int> OnDialogueChoiceSelected;
@@ -26,6 +27,7 @@ namespace DungeonCrawler.Core
         public static void RaiseEnemyKilled(string enemyId) => OnEnemyKilled?.Invoke(enemyId);
         public static void RaiseItemCollected(string itemId) => OnItemCollected?.Invoke(itemId);
         public static void RaiseWeaponEquipped(WeaponData weapon) => OnWeaponEquipped?.Invoke(weapon);
+        public static void RaiseWeaponUnequipped() => OnWeaponUnequipped?.Invoke();
         public static void RaiseDialogueStarted(string dialogueId) => OnDialogueStarted?.Invoke(dialogueId);
         public static void RaiseDialogueEnded(string dialogueId) => OnDialogueEnded?.Invoke(dialogueId);
         public static void RaiseDialogueChoice(string dialogueId, int choiceIndex) =>

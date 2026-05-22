@@ -22,6 +22,10 @@ public class QuestInstance
             case ObjectiveType.Exploration:
                 objective = new ExplorationObjective(data, status);
                 break;
+
+            case ObjectiveType.EquipWeapon:
+                objective = new EquipWeaponObjective(data, status);
+                break;
         }
     }
 }

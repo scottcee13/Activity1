@@ -13,6 +13,7 @@ namespace DungeonCrawler.Quests
 
         [SerializeField] private List<string> questIdsInOrder = new List<string>
         {
+            "tutorial_equip_weapon",
             "tutorial_talk",
             "tutorial_move",
             "tutorial_combat",

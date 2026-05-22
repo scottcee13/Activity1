@@ -1,10 +1,13 @@
+using DungeonCrawler.Boss;
+using DungeonCrawler.Combat;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyFSM : MonoBehaviour
 {
     public enum EnemyState { Idle, Patrol, Chase, Attack }
-    public EnemyState currentState;
 
+    public EnemyState currentState;
     public Transform player;
     public float detectionRange = 10f;
     public float attackRange = 2f;
@@ -16,14 +19,22 @@ public class EnemyFSM : MonoBehaviour
     private EnemyMovement movement;
     private EnemyAttack attack;
     private Animator animator;
-    private DungeonCrawler.Combat.HealthComponent health;
+    private HealthComponent health;
+    private NavMeshAgent agent;
 
     private void Start()
     {
         movement = GetComponent<EnemyMovement>();
         attack = GetComponent<EnemyAttack>();
         animator = GetComponent<Animator>();
-        health = GetComponent<DungeonCrawler.Combat.HealthComponent>();
+        health = GetComponent<HealthComponent>();
+        agent = GetComponent<NavMeshAgent>();
+
+        if (GetComponent<BossController>() != null)
+        {
+            enabled = false;
+            return;
+        }
 
         if (player == null)
         {
@@ -37,19 +48,29 @@ public class EnemyFSM : MonoBehaviour
 
     private void Update()
     {
-        if (health != null && health.IsDead) return;
+        if (!enabled) return;
+        if (health != null && health.IsDead)
+        {
+            enabled = false;
+            return;
+        }
+
         if (player == null) return;
+
+        if (attack != null && attack.IsAttacking)
+        {
+            StopAgent();
+            SetAnimatorLocomotion(false, false);
+            return;
+        }
 
         float distance = Vector3.Distance(transform.position, player.position);
 
         switch (currentState)
         {
             case EnemyState.Idle:
-                if (animator != null)
-                {
-                    animator.SetBool("isPatrolling", false);
-                    animator.SetBool("isChasing", false);
-                }
+                StopAgent();
+                SetAnimatorLocomotion(false, false);
 
                 if (distance < detectionRange)
                 {
@@ -68,11 +89,7 @@ public class EnemyFSM : MonoBehaviour
                 break;
 
             case EnemyState.Patrol:
-                if (animator != null)
-                {
-                    animator.SetBool("isPatrolling", true);
-                    animator.SetBool("isChasing", false);
-                }
+                SetAnimatorLocomotion(true, false);
 
                 if (movement != null && movement.Patrol())
                     currentState = EnemyState.Idle;
@@ -82,34 +99,60 @@ public class EnemyFSM : MonoBehaviour
                 break;
 
             case EnemyState.Chase:
-                if (animator != null)
-                {
-                    animator.SetBool("isPatrolling", false);
-                    animator.SetBool("isChasing", true);
-                }
+                SetAnimatorLocomotion(false, true);
 
                 if (movement != null)
                     movement.MoveTo(player.position);
 
                 if (distance <= attackRange)
                     currentState = EnemyState.Attack;
-                else if (distance > detectionRange)
+                else if (distance > detectionRange * 1.2f)
                     currentState = EnemyState.Idle;
                 break;
 
             case EnemyState.Attack:
-                if (animator != null)
+                StopAgent();
+                SetAnimatorLocomotion(false, false);
+                FacePlayer();
+
+                if (attack != null && attack.TryBeginAttack())
                 {
-                    animator.SetBool("isPatrolling", false);
-                    animator.SetBool("isChasing", false);
+                    // Wait in Attack until OnAttackEnd clears attackInProgress
                 }
-
-                if (attack != null)
-                    attack.Attack();
-
-                if (distance > attackRange)
-                    currentState = EnemyState.Chase;
+                else if (attack == null || !attack.IsAttacking)
+                {
+                    if (distance > attackRange)
+                        currentState = EnemyState.Chase;
+                }
                 break;
         }
+    }
+
+    private void FacePlayer()
+    {
+        if (player == null) return;
+
+        Vector3 dir = player.position - transform.position;
+        dir.y = 0f;
+        if (dir.sqrMagnitude < 0.01f) return;
+
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            Quaternion.LookRotation(dir),
+            8f * Time.deltaTime
+        );
+    }
+
+    private void StopAgent()
+    {
+        if (agent != null && agent.enabled && agent.isOnNavMesh)
+            agent.isStopped = true;
+    }
+
+    private void SetAnimatorLocomotion(bool patrolling, bool chasing)
+    {
+        if (animator == null) return;
+        animator.SetBool("isPatrolling", patrolling);
+        animator.SetBool("isChasing", chasing);
     }
 }

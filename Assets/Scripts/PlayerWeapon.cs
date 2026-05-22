@@ -1,76 +1,87 @@
-﻿using UnityEngine;
+﻿using DungeonCrawler.Core;
+using DungeonCrawler.Player;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    [FormerlySerializedAs("weaponObjects")]
+    [SerializeField] private WeaponData[] weaponSlots = new WeaponData[3];
+    [SerializeField] private WeaponEquipManager equipManager;
 
-    [SerializeField] private WeaponData[] weaponObjects;
+    private int selectedSlot;
 
-    private int currentIndex = 0;
-    private float lastAttackTime = -Mathf.Infinity;
+    public bool IsEquipped => equipManager != null && equipManager.IsWeaponEquipped;
 
-    void Start()
+    private void Awake()
     {
-        currentIndex = 0;
+        if (equipManager == null)
+            equipManager = GetComponent<WeaponEquipManager>();
+
+        if (weaponSlots == null || weaponSlots.Length < 3)
+            weaponSlots = new WeaponData[3];
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        CharacterControllerMovement.OnAttack += Attack;
-    }
-
-    private void OnDisable()
-    {
-        CharacterControllerMovement.OnAttack -= Attack;
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SwitchWeapon(-1);
-        }
         if (Input.GetKeyDown(KeyCode.E))
-        {
-            SwitchWeapon(1);
-        }
+            ToggleEquip();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            SelectSlot(0);
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            SelectSlot(1);
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            SelectSlot(2);
     }
 
-    void SwitchWeapon(int direction)
+    public void ToggleEquip()
     {
-        currentIndex += direction;
+        if (equipManager == null) return;
 
-        if (currentIndex >= weaponObjects.Length) currentIndex = 0;
-        else if (currentIndex < 0) currentIndex = weaponObjects.Length - 1;
+        if (equipManager.IsWeaponEquipped)
+        {
+            equipManager.Unequip();
+            return;
+        }
+
+        WeaponData weapon = GetSlotWeapon(selectedSlot);
+        if (weapon != null)
+            equipManager.Equip(weapon);
     }
 
-    public bool Attack()
+    public void SelectSlot(int index)
     {
-        WeaponData currentWeapon = weaponObjects[currentIndex];
+        if (weaponSlots == null || index < 0 || index >= weaponSlots.Length) return;
 
-        float nextReadyTime = lastAttackTime + currentWeapon.attackCooldown;
-        float remainingTime = nextReadyTime - Time.time;
+        selectedSlot = index;
+        WeaponData weapon = weaponSlots[index];
+        if (weapon == null || equipManager == null) return;
 
-        if (Time.time >= nextReadyTime)
-        {
-            lastAttackTime = Time.time;
+        if (equipManager.IsWeaponEquipped && equipManager.CurrentWeapon == weapon)
+            return;
 
-            Debug.Log(currentWeapon.weaponName + ": " +
-                "Dealt " + currentWeapon.weaponDamage + " damage!\n" +
-                currentWeapon.weaponDescription + " (" +
-                currentWeapon.attackCooldown + " second(s) cooldown.)");
-            return true;
-        }
-        else
-        {
-            Debug.Log(currentWeapon.weaponName +
-            " is on cooldown! Ready in " +
-            remainingTime.ToString("F2") + "s");
-            return false;
-        }
+        equipManager.Equip(weapon);
     }
 
+    public void UnequipWeapon()
+    {
+        equipManager?.Unequip();
+    }
+
+    public WeaponData GetCurrentWeapon()
+    {
+        if (equipManager != null && equipManager.CurrentWeapon != null)
+            return equipManager.CurrentWeapon;
+
+        return GetSlotWeapon(selectedSlot);
+    }
+
+    public WeaponData GetSlotWeapon(int index)
+    {
+        if (weaponSlots == null || index < 0 || index >= weaponSlots.Length) return null;
+        return weaponSlots[index];
+    }
 }
-

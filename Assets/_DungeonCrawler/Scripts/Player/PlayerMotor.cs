@@ -20,6 +20,7 @@ namespace DungeonCrawler.Player
         private CharacterController controller;
         private Vector3 verticalVelocity;
         private Animator animator;
+        private PlayerMovementLock movementLock;
 
         public bool IsGrounded { get; private set; }
 
@@ -27,6 +28,7 @@ namespace DungeonCrawler.Player
         {
             controller = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
+            movementLock = GetComponent<PlayerMovementLock>();
 
             if (cameraPivot == null && PlayerAimProvider.Instance != null)
                 cameraPivot = PlayerAimProvider.Instance.transform;
@@ -44,6 +46,22 @@ namespace DungeonCrawler.Player
 
             UpdateGrounded();
             HandleGravity();
+
+            if (movementLock != null && movementLock.IsLocked)
+            {
+                ApplyMovement(Vector3.zero);
+                UpdateAnimator(Vector3.zero);
+                return;
+            }
+
+            PlayerCombat combat = GetComponent<PlayerCombat>();
+            if (combat != null && combat.IsAttacking)
+            {
+                ApplyMovement(Vector3.zero);
+                UpdateAnimator(Vector3.zero);
+                return;
+            }
+
             Vector3 move = GetCameraRelativeMove();
             ApplyMovement(move);
             RotateTowardMove(move);
@@ -104,7 +122,6 @@ namespace DungeonCrawler.Player
             if (Input.GetKey(KeyCode.LeftControl))
                 speed *= sprintMultiplier;
 
-            // One combined move per frame avoids CharacterController jitter from multiple Move() calls.
             Vector3 velocity = move * speed + Vector3.up * verticalVelocity.y;
             controller.Move(velocity * Time.deltaTime);
         }

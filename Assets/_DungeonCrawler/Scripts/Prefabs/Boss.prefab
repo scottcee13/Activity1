@@ -18,6 +18,9 @@ GameObject:
   - component: {fileID: 3443617994561051256}
   - component: {fileID: 7583322962439540428}
   - component: {fileID: 5211897450127703077}
+  - component: {fileID: 883000001}
+  - component: {fileID: 883000002}
+  - component: {fileID: 883000003}
   m_Layer: 6
   m_Name: Boss
   m_TagString: Untagged
@@ -198,11 +201,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DungeonCrawler.Boss.BossController
   data: {fileID: 11400000, guid: e7afae1948fcdad47ab463077c3b895d, type: 2}
   player: {fileID: 0}
-  meleeRange: 3
+  meleeRange: 6
   rangedFirePoint: {fileID: 5433729570407534519}
   projectilePrefab: {fileID: 1841117848496669154, guid: 6aa31c01a3871b04095a28c4860328ba, type: 3}
   addSpawner: {fileID: 0}
   animator: {fileID: 9199251416112586682}
+  waitForArenaActivation: 0
+  autoActivateWhenPlayerNear: 1
+--- !u!114 &883000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2330241961284305734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822b8acece20e53409a123c24ece79ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonCrawler.Combat.EntityDeathHandler
+  destroyDelay: 1.5
+  destroyOnDeath: 1
+--- !u!114 &883000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2330241961284305734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd779725b1e878e43899ec8dfae98bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonCrawler.Combat.EntityGameplayBootstrap
+--- !u!114 &883000003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2330241961284305734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80c114133dca0b4b9e3255468420a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonCrawler.Combat.CombatAnimationEvents
 --- !u!1 &7871164457896419621
 GameObject:
   m_ObjectHideFlags: 0

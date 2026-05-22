@@ -27,9 +27,19 @@ public class QuestUIItem : MonoBehaviour
         if (progressText != null)
         {
             if (quest.status.isCompleted)
-                progressText.text = quest.status.rewardClaimed ? "Completed" : "Complete — claim reward";
+            {
+                progressText.text = quest.data.objectiveType == ObjectiveType.EquipWeapon
+                    ? "Quest Complete"
+                    : quest.status.rewardClaimed ? "Completed" : "Complete — claim reward";
+            }
+            else if (quest.data.objectiveType == ObjectiveType.EquipWeapon)
+            {
+                progressText.text = quest.data.description;
+            }
             else
+            {
                 progressText.text = $"{quest.status.currentAmount} / {quest.data.requiredAmount}";
+            }
         }
 
         if (claimButton != null)

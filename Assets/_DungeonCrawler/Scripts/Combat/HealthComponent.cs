@@ -19,6 +19,8 @@ namespace DungeonCrawler.Combat
         public event Action<int, int> OnHealthChanged;
         public event Action OnDeath;
 
+        private bool deathHandled;
+
         private void Awake()
         {
             if (CompareTag("Player"))
@@ -39,10 +41,15 @@ namespace DungeonCrawler.Combat
 
         public void TakeDamage(int amount)
         {
-            TakeDamage(amount, Vector3.zero, 0f);
+            TakeDamage(amount, Vector3.zero, 0f, false);
         }
 
         public void TakeDamage(int amount, Vector3 knockbackDirection, float knockbackForce)
+        {
+            TakeDamage(amount, knockbackDirection, knockbackForce, knockbackForce > 0f);
+        }
+
+        public void TakeDamage(int amount, Vector3 knockbackDirection, float knockbackForce, bool applyKnockback)
         {
             if (IsDead || amount <= 0) return;
 
@@ -56,29 +63,37 @@ namespace DungeonCrawler.Combat
             CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
             OnHealthChanged?.Invoke(CurrentHealth, maxHealth);
 
-            ApplyKnockback(knockbackDirection, knockbackForce);
+            if (applyKnockback)
+                ApplyKnockback(knockbackDirection, knockbackForce);
 
             if (isPlayer)
-            {
-                GameEvents.RaisePlayerHealthChanged(CurrentHealth);
-                PlayerHealth legacy = GetComponent<PlayerHealth>();
-                if (legacy != null)
-                {
-                    legacy.SyncFromHealthComponent(CurrentHealth);
-                    PlayerHealth.OnPlayerDamaged?.Invoke(CurrentHealth);
-                }
-
-                Player.PlayerDamageReceiver invuln = GetComponent<Player.PlayerDamageReceiver>();
-                invuln?.ApplyInvulnerability();
-            }
+                HandlePlayerDamaged();
 
             if (CurrentHealth <= 0)
                 Die();
         }
 
+        private void HandlePlayerDamaged()
+        {
+            Animator playerAnimator = GetComponentInChildren<Animator>();
+            if (playerAnimator != null)
+                playerAnimator.SetTrigger("hurt");
+
+            GameEvents.RaisePlayerHealthChanged(CurrentHealth);
+            PlayerHealth legacy = GetComponent<PlayerHealth>();
+            if (legacy != null)
+            {
+                legacy.SyncFromHealthComponent(CurrentHealth);
+                PlayerHealth.OnPlayerDamaged?.Invoke(CurrentHealth);
+            }
+
+            Player.PlayerDamageReceiver invuln = GetComponent<Player.PlayerDamageReceiver>();
+            invuln?.ApplyInvulnerability();
+        }
+
         private void ApplyKnockback(Vector3 direction, float force)
         {
-            if (force <= 0f) return;
+            if (force <= 0f || IsDead) return;
 
             direction.y = 0f;
             if (direction.sqrMagnitude < 0.01f) return;
@@ -99,34 +114,21 @@ namespace DungeonCrawler.Combat
 
         private void Die()
         {
+            if (deathHandled) return;
+            deathHandled = true;
+
             OnDeath?.Invoke();
 
             if (isPlayer)
-            {
-                GameEvents.RaisePlayerDied();
-                PlayerHealth.OnPlayerDeath?.Invoke();
-            }
-            else
-            {
-                GameEvents.RaiseEnemyKilled(entityId);
-            }
+                return;
 
-            if (!isPlayer)
-            {
-                Collider col = GetComponent<Collider>();
-                if (col != null) col.enabled = false;
+            GameEvents.RaiseEnemyKilled(entityId);
 
-                EnemyFSM fsm = GetComponent<EnemyFSM>();
-                if (fsm != null) fsm.enabled = false;
+            EntityDeathHandler deathHandler = GetComponent<EntityDeathHandler>();
+            if (deathHandler == null)
+                deathHandler = gameObject.AddComponent<EntityDeathHandler>();
 
-                UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-                if (agent != null)
-                {
-                    if (agent.enabled && agent.isOnNavMesh)
-                        agent.isStopped = true;
-                    agent.enabled = false;
-                }
-            }
+            deathHandler.ForceDeathCleanup();
         }
     }
 }

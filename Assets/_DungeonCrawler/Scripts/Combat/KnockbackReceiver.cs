@@ -28,6 +28,9 @@ namespace DungeonCrawler.Combat
         {
             if (force <= 0f) return;
 
+            HealthComponent health = GetComponent<HealthComponent>();
+            if (health != null && health.IsDead) return;
+
             direction.y = 0f;
             if (direction.sqrMagnitude < 0.01f)
                 direction = -transform.forward;

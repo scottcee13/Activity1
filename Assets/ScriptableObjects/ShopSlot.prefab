@@ -203,3 +203,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopSlot
   icon: {fileID: 4980424403251535808}
+  clickSound: {fileID: 0}

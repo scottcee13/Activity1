@@ -493,7 +493,7 @@ MonoBehaviour:
   meleeRange: 2.5
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   attackOrigin: {fileID: 0}
   hitVfxPrefab: {fileID: 0}
 --- !u!114 &4868335865125134843

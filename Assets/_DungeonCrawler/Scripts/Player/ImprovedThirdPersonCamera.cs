@@ -40,6 +40,11 @@ namespace DungeonCrawler.Player
             if (target == null || pivot == null) return;
             if (Core.GameManager.Instance != null && Core.GameManager.Instance.IsPaused) return;
 
+            PlayerMovementLock movementLock = target != null ? target.GetComponent<PlayerMovementLock>() : null;
+            PlayerCombat combat = target != null ? target.GetComponent<PlayerCombat>() : null;
+            if (movementLock != null && movementLock.IsLocked) return;
+            if (combat != null && combat.IsAttacking) return;
+
             float mx = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
             float my = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
 

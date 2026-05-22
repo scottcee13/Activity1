@@ -1168,22 +1168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 044abf226a5ade8499b2598246b5aca4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeapon
-  weaponObjects:
-  - {fileID: 1421780898}
-  - {fileID: 1027753099}
-  - {fileID: 1367328194}
-  - {fileID: 1498699095}
-  - {fileID: 1041953266}
-  - {fileID: 1300511422}
-  - {fileID: 337870857}
-  - {fileID: 813365886}
-  - {fileID: 1255618389}
-  - {fileID: 898469499}
-  - {fileID: 1071924249}
-  - {fileID: 2075674133}
-  - {fileID: 1506467236}
-  - {fileID: 857550910}
-  - {fileID: 1563633000}
+  weaponCatalog: []
+  equipManager: {fileID: 0}
 --- !u!114 &949447881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1196,6 +1182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e423e9828bf956046b86d202c00d6ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  animator: {fileID: 0}
+  maxHealth: 100
   health: 100
 --- !u!1 &1027753097
 GameObject:
